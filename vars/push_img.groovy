@@ -7,7 +7,7 @@ def call (String username, String image_name, String tag) {
                    )]) {
                        sh '''
                        echo "$PASS" | docker login -u "$USER" --password-stdin
-                       docker push "${username}"/"${image_name}":"${tag}"
+                       docker push ${username}/${image_name}:${tag}
                        '''
                   }
 }
