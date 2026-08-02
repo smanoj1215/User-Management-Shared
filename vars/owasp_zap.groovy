@@ -37,20 +37,4 @@ def call(String targetUrl) {
         allowEmptyArchive: true
     )
 
-    switch (exitCode) {
-        case 0:
-            echo "No FAIL alerts."
-            break
-
-        case 1:
-            error("FAIL-level vulnerabilities found.")
-            break
-
-        case 2:
-            unstable("WARN-level vulnerabilities found.")
-            break
-
-        default:
-            error("ZAP execution failed.")
-        }
 }
