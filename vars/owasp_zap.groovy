@@ -44,12 +44,15 @@ def call(String targetUrl) {
 
         case 1:
             error("OWASP ZAP detected one or more high-risk vulnerabilities.")
+            break
 
         case 2:
             unstable("OWASP ZAP detected warning-level issues. Review the published report.")
+            break
 
         case 3:
             error("OWASP ZAP encountered an internal error during the scan.")
+            break
 
         default:
             error("Unknown OWASP ZAP exit code: ${exitCode}")
