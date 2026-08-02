@@ -2,6 +2,7 @@ def call(String targetUrl) {
 
     sh """
         docker run --rm \
+            --user root \
             --network host \
             -v \$(pwd):/zap/wrk/:rw \
             ghcr.io/zaproxy/zaproxy:stable \
