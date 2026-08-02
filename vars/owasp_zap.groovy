@@ -31,22 +31,27 @@ def call(String targetUrl) {
         echo "ZAP HTML report not found."
     }
 
-    archiveArtifacts artifacts: 'zap-report.*', fingerprint: true, allowEmptyArchive: true
+    archiveArtifacts(
+        artifacts: 'zap-report.*',
+        fingerprint: true,
+        allowEmptyArchive: true
+    )
 
     switch (exitCode) {
         case 0:
-            echo "OWASP ZAP scan passed."
+            echo "OWASP ZAP scan completed successfully. No alerts found."
             break
 
         case 1:
-            unstable("OWASP ZAP found warning(s). Check the HTML report.")
-            break
+            error("OWASP ZAP detected one or more high-risk vulnerabilities.")
 
         case 2:
-            error("OWASP ZAP found high-risk vulnerability(ies).")
-            break
+            unstable("OWASP ZAP detected warning-level issues. Review the published report.")
+
+        case 3:
+            error("OWASP ZAP encountered an internal error during the scan.")
 
         default:
-            error("OWASP ZAP failed with exit code ${exitCode}.")
+            error("Unknown OWASP ZAP exit code: ${exitCode}")
     }
 }
