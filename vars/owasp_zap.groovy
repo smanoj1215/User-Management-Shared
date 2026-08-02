@@ -39,22 +39,18 @@ def call(String targetUrl) {
 
     switch (exitCode) {
         case 0:
-            echo "OWASP ZAP scan completed successfully. No alerts found."
+            echo "No FAIL alerts."
             break
 
         case 1:
-            error("OWASP ZAP detected one or more high-risk vulnerabilities.")
+            error("FAIL-level vulnerabilities found.")
             break
 
         case 2:
-            unstable("OWASP ZAP detected warning-level issues. Review the published report.")
-            break
-
-        case 3:
-            error("OWASP ZAP encountered an internal error during the scan.")
+            unstable("WARN-level vulnerabilities found.")
             break
 
         default:
-            error("Unknown OWASP ZAP exit code: ${exitCode}")
-    }
+            error("ZAP execution failed.")
+        }
 }
